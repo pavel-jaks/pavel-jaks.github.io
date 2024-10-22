@@ -80,10 +80,10 @@
 
         
         <div style="grid-column: 1; grid-row: 2; position: relative; top: -50px; height: 118px;" class="leaderboard">
-            <h2 style="margin-left: 30px; margin-top: 5px;">Pořadí</h2>
+            <h2 style="margin-left: 30px; margin-top: 5px;">Dostih 1</h2>
             <span id="time" style="margin-left: 30px;"></span>
         </div>
-        <div class="leaderboard" style="grid-column: 2; grid-row: 2; padding: 0; margin-right: 10px; position: absolute; width: 1498px; height: 108px;">
+        <div class="leaderboard" style="grid-column: 2; grid-row: 2; padding: 0; margin-right: 10px; position: absolute; width: 1348px; height: 108px;">
             <div id="horse-list" style="padding-left: 0; position: absolute; top: 0; margin-top: 16.8px;">
             </div>
         </div>
@@ -257,7 +257,7 @@ function fetchMockLeaderboardData(url) {
 }
 
 const magicConstant = 110;
-const offset = - 50;
+const offset = - 95;
 
 for (let i = 0; i < horseCount; i++){
     var horse = horseStaticData[i];
@@ -346,7 +346,7 @@ function animate() {
         } else if (horse.horseId == thirdHorseId) {
             horse.listItem.style.fontSize = '45px';
         } else {
-            horse.listItem.style.fontSize = '40px';
+            horse.listItem.style.fontSize = '35px';
         }
 
     }
