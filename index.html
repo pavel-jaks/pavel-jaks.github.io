@@ -13,13 +13,13 @@
       max-width: 1920px;
       height: 1080px;
       margin: 0;
-      overflow: hidden;
+      /* overflow: hidden; */
     }
 
     .grid-container {
         display: grid;
         grid-template-columns: 20% 80%;
-        grid-template-rows: 85% 14% 1%;
+        grid-template-rows: 83% 17% 1%;
         gap: 20px;
         height: 1080px;
         width: 1880px;
@@ -63,16 +63,40 @@
         position: absolute;
         display: inline;
         padding: 0;
+        /* border-radius: 10%; */
+        
+        top: auto;
+        text-align: center;
+        
+        background-color: transparent;
+    }
+
+    .horse-arrow {
         width: 104.4px;
         height: 74.4px;
         color:#ffffff;
-        /* border-radius: 10%; */
-        font-weight: bold;
-        top: auto;
-        text-align: center;
-        line-height: 74.4px;
         clip-path: polygon(100% 0, 25% 0, 0 50%, 25% 100%, 100% 100%, 75% 50%);
     }
+
+    .horse-id {
+        height: 74.4px;
+        font-weight: bold;
+        line-height: 74.4px;
+    }
+
+    .horse-odds{
+        position: absolute;
+        top: 86.2px;
+        height: 25px;
+        /* line-height: 50px; */
+        font-size: 25px;
+        margin-bottom: 20px;
+        font-weight: bold;
+        text-align: center;
+        width: 100%;
+        color: #f59a00;
+    }
+
     </style>
   <!-- <link href="./src/output.css" rel="stylesheet"> -->
 </head>
@@ -81,11 +105,12 @@
 
 
         
-        <div style="grid-column: 1; grid-row: 2; position: relative; top: -50px; height: 118px;" class="leaderboard">
-            <h2 style="margin-left: 30px; margin-top: 5px;">Dostih 1</h2>
-            <span id="time" style="margin-left: 30px; padding-bottom: 20px; position: absolute; bottom: 20px;"></span>
+        <div style="grid-column: 1; grid-row: 2; position: relative; top: -50px; height: 158px; padding-left: 0px;" class="leaderboard">
+            <h2 style="margin-left: 15px; margin-top: 5px;">Dostih 1</h2>
+            <span id="time" style="margin-left: 15px; padding-bottom: 20px; position: absolute; bottom: 30px;"></span>
+            <span style="position: absolute; bottom: 15px; margin-left: 15px;font-size: 25px; color: #f59a00;">Sázkový kurz Tipsport:</span>
         </div>
-        <div class="leaderboard" style="grid-column: 2; grid-row: 2; padding: 0; margin-right: 10px; position: absolute; width: 1348px; height: 108px;">
+        <div class="leaderboard" style="grid-column: 2; grid-row: 2; padding: 0; margin-right: 10px; position: absolute; width: 1348px; height: 148px;">
             <div id="horse-list" style="padding-left: 0; position: absolute; top: 0; margin-top: 16.8px;">
             </div>
         </div>
@@ -156,84 +181,96 @@ var horseStaticData = [
         backgroundColor: '#dc2626',
         horseOrder: 1,
         listItem: document.createElement('div'),
-        previousOrder: 1
+        previousOrder: 1,
+        bettingOdds: 1.17
     },
     {
         horseId: 2,
         backgroundColor: '#eab308',
         horseOrder: 2,
         listItem: document.createElement('div'),
-        previousOrder: 2
+        previousOrder: 2,
+        bettingOdds: 2.15
     },
     {
         horseId: 3,
         backgroundColor: '#f59e0b',
         horseOrder: 3,
         listItem: document.createElement('div'),
-        previousOrder: 3
+        previousOrder: 3,
+        bettingOdds: 3.29
     },
     {
         horseId: 4,
         backgroundColor: '#84cc16',
         horseOrder: 4,
         listItem: document.createElement('div'),
-        previousOrder: 4
+        previousOrder: 4,
+        bettingOdds: 6.78
     },
     {
         horseId: 5,
         backgroundColor: '#22c55e',
         horseOrder: 5,
         listItem: document.createElement('div'),
-        previousOrder: 5
+        previousOrder: 5,
+        bettingOdds: 1.32
     },
     {
         horseId: 6,
         backgroundColor: '#10b981',
         horseOrder: 6,
         listItem: document.createElement('div'),
-        previousOrder: 6
+        previousOrder: 6,
+        bettingOdds: 3.15
     },
     {
         horseId: 7,
         backgroundColor: '#14b8a6',
         horseOrder: 7,
         listItem: document.createElement('div'),
-        previousOrder: 7
+        previousOrder: 7,
+        bettingOdds: 2.71
     },
     {
         horseId: 8,
         backgroundColor: '#06b6d4',
         horseOrder: 8,
         listItem: document.createElement('div'),
-        previousOrder: 8
+        previousOrder: 8,
+        bettingOdds: 2.50
     },
     {
         horseId: 9,
         backgroundColor: '#0ea5e9',
         horseOrder: 9,
         listItem: document.createElement('div'),
-        previousOrder: 9
+        previousOrder: 9,
+        bettingOdds: 7
     },
     {
         horseId: 10,
         backgroundColor: '#3b82f6',
         horseOrder: 10,
         listItem: document.createElement('div'),
-        previousOrder: 10
+        previousOrder: 10,
+        bettingOdds: 9
     },
     {
         horseId: 11,
         backgroundColor: '#d946ef',
         horseOrder: 11,
         listItem: document.createElement('div'),
-        previousOrder: 11
+        previousOrder: 11,
+        bettingOdds: 9.15
     },
     {
         horseId: 12,
         backgroundColor: '#f43f5e',
         horseOrder: 12,
         listItem: document.createElement('div'),
-        previousOrder: 12
+        previousOrder: 12,
+        bettingOdds: 10.15
     },
 ];
 
@@ -265,10 +302,25 @@ for (let i = 0; i < horseCount; i++){
     var horse = horseStaticData[i];
     var horseList = document.getElementById('horse-list');
     if (horseList){
-        horse.listItem.textContent = "".concat(String(horse.horseId));
+        var spanWithHorseNumber = document.createElement('div');
+        spanWithHorseNumber.textContent = `${horse.horseId}`;
+        spanWithHorseNumber.className = 'horse-id';
+
+        
+        var spanWithOdds = document.createElement('div');
+        spanWithOdds.textContent = `${horse.bettingOdds}`;
+        spanWithOdds.className = 'horse-odds';
+
+        var divArrow = document.createElement('div');
+        divArrow.className = 'horse-arrow';
+        divArrow.style.background = `linear-gradient(0deg, #202020 0%, ${horse.backgroundColor} 100%)`;
+
+        divArrow.appendChild(spanWithHorseNumber);
+
+        horse.listItem.appendChild(divArrow);
+        horse.listItem.appendChild(spanWithOdds);
         horse.listItem.className = 'horse';
         horse.listItem.style.left = `${magicConstant * horse.horseOrder + offset}px`;
-        horse.listItem.style.background = `linear-gradient(0deg, #202020 0%, ${horse.backgroundColor} 100%)`;
         horseList.appendChild(horse.listItem);
     }
 }
@@ -278,7 +330,7 @@ var order = [... Array(horseCount).keys()];
 function mayChangeOrder() {
     var changed = Math.random() > 0.9;
     if (changed){
-        var whatPlace = Math.floor(Math.random() * (horseCount - 2));
+        var whatPlace = Math.floor(Math.random() * (horseCount));
 
         // let whatPlace = 0;
         // for (let i = 0; i < horseCount; i++){
@@ -286,14 +338,17 @@ function mayChangeOrder() {
         //         whatPlace = i;
         //     }
         // }
-        let whatSecondPlace = 0;
+        let whatSecondPlace = -1;
         for (let i = 0; i < horseCount; i++){
             if (order[i] == order[whatPlace] + 1){
                 whatSecondPlace = i;
+                break;
             }
         }
         
-        [order[whatPlace], order[whatSecondPlace]] = [order[whatSecondPlace], order[whatPlace]];
+        if (whatSecondPlace != -1){
+            [order[whatPlace], order[whatSecondPlace]] = [order[whatSecondPlace], order[whatPlace]];
+        }
         // order = order;
         //console.log(whatPlace);
         // var firstHorse = horseStaticData.filter((horse) => horse.horseOrder == whatPlace)[0];
